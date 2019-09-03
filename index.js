@@ -3,14 +3,18 @@ const { ApolloServer, gql } = require("apollo-server");
 const typeDefs = gql`
   # Pontos de entrada da sua API
   type Query {
-    ola: String!
+    horaAtual: String!
   }
 `;
 
 const resolvers = {
   Query: {
-    ola() {
-      return "Hello World";
+    horaAtual() {
+      const today = new Date();
+      const dd = String(today.getDate()).padStart(2, "0");
+      const mm = String(today.getMonth() + 1).padStart(2, "0");
+      const yyyy = today.getFullYear();
+      return String(`${dd}/${mm}/${yyyy}`);
     }
   }
 };
