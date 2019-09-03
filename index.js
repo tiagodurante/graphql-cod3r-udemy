@@ -1,8 +1,19 @@
 const { ApolloServer, gql } = require("apollo-server");
 
-const typeDefs = gql``;
+const typeDefs = gql`
+  # Pontos de entrada da sua API
+  type Query {
+    ola: String!
+  }
+`;
 
-const resolvers = {};
+const resolvers = {
+  Query: {
+    ola() {
+      return "Hello World";
+    }
+  }
+};
 
 const server = new ApolloServer({
   typeDefs,
