@@ -19,6 +19,11 @@ const typeDefs = gql`
 `;
 
 const resolvers = {
+  Usuario: {
+    salario(usuario) {
+      return usuario.salario_real;
+    }
+  },
   Query: {
     horaAtual() {
       return new Date();
@@ -29,7 +34,7 @@ const resolvers = {
         nome: "Tiago",
         email: "tiagodurante@outlook.com.br",
         idade: "23",
-        salario: 1234.56,
+        salario_real: 1234.56,
         vip: true
       };
     }
