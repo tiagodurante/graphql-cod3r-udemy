@@ -25,7 +25,7 @@ const typeDefs = gql`
   scalar Date
   # Pontos de entrada da sua API
   type Usuario {
-    id: ID!
+    id: Int!
     nome: String!
     email: String!
     idade: Int
@@ -44,6 +44,7 @@ const typeDefs = gql`
     produtoEmDestaque: Produto
     numerosMegaSena: [Int]!
     usuarios: [Usuario]
+    usuario(id: Int): Usuario
   }
 `;
 
@@ -89,6 +90,10 @@ const resolvers = {
     },
     usuarios() {
       return users;
+    },
+    usuario(_, args) {
+      const sels = users.filter(u => u.id === args.id);
+      return sels ? sels[0] : null;
     }
   }
 };
