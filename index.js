@@ -12,13 +12,26 @@ const typeDefs = gql`
     vip: Boolean
   }
 
+  type Produto {
+    nome: String!
+    preco: Float!
+    desconto: Int
+    precoComDesconto: Float
+  }
+
   type Query {
     horaAtual: Date
     usuarioLogado: Usuario
+    produtoEmDestaque: Produto
   }
 `;
 
 const resolvers = {
+  Produto: {
+    precoComDesconto(parent) {
+      return (1 - parent.desconto / 100) * parent.preco;
+    }
+  },
   Usuario: {
     salario(usuario) {
       return usuario.salario_real;
@@ -36,6 +49,13 @@ const resolvers = {
         idade: "23",
         salario_real: 1234.56,
         vip: true
+      };
+    },
+    produtoEmDestaque() {
+      return {
+        nome: "Café 3 Corações 250g",
+        preco: 4.99,
+        desconto: 10
       };
     }
   }
