@@ -29,7 +29,10 @@ const typeDefs = gql`
 const resolvers = {
   Produto: {
     precoComDesconto(parent) {
-      return (1 - parent.desconto / 100) * parent.preco;
+      if (parent.desconto) {
+        return (1 - parent.desconto / 100) * parent.preco;
+      }
+      return parent.preco;
     }
   },
   Usuario: {
