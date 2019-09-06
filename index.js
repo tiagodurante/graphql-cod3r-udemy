@@ -1,5 +1,26 @@
 const { ApolloServer, gql } = require("apollo-server");
 
+const users = [
+  {
+    id: 1,
+    nome: "Tiago",
+    email: "tiagodurante@outlook.com.br",
+    idade: "23"
+  },
+  {
+    id: 2,
+    nome: "Mayko",
+    email: "mkioschi@outlook.com.br",
+    idade: "24"
+  },
+  {
+    id: 3,
+    nome: "Felipe",
+    email: "felipebock@outlook.com.br",
+    idade: "25"
+  }
+];
+
 const typeDefs = gql`
   scalar Date
   # Pontos de entrada da sua API
@@ -8,8 +29,6 @@ const typeDefs = gql`
     nome: String!
     email: String!
     idade: Int
-    salario: Float
-    vip: Boolean
   }
 
   type Produto {
@@ -24,6 +43,7 @@ const typeDefs = gql`
     usuarioLogado: Usuario
     produtoEmDestaque: Produto
     numerosMegaSena: [Int]!
+    usuarios: [Usuario]
   }
 `;
 
@@ -37,9 +57,9 @@ const resolvers = {
     }
   },
   Usuario: {
-    salario(usuario) {
-      return usuario.salario_real;
-    }
+    // salario(usuario) {
+    //   return usuario.salario_real;
+    // }
   },
   Query: {
     horaAtual() {
@@ -50,9 +70,7 @@ const resolvers = {
         id: 1,
         nome: "Tiago",
         email: "tiagodurante@outlook.com.br",
-        idade: "23",
-        salario_real: 1234.56,
-        vip: true
+        idade: "23"
       };
     },
     produtoEmDestaque() {
@@ -68,6 +86,9 @@ const resolvers = {
         .fill(0)
         .map(n => parseInt(Math.random() * 60 + 1))
         .sort(crescente);
+    },
+    usuarios() {
+      return users;
     }
   }
 };
